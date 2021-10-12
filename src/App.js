@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container } from "@material-ui/core";
+import { Container, List } from "@material-ui/core";
 import Note from "./components/Note";
 
 class App extends Component {
@@ -32,9 +32,11 @@ class App extends Component {
     const { notes } = this.state;
     return (
       <Container>
-        {notes.map((note, index) => {
-          return <Note note={note} key={index} />;
-        })}
+        <List>
+          {notes.map((note, index) => {
+            return <Note note={note} key={index} />;
+          })}
+        </List>
       </Container>
     );
   }
