@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { FormControl, TextField, Button } from "@material-ui/core";
 import { withRouter } from "react-router";
 
-class AddNote extends Component {
+class UpsertNote extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -11,6 +11,18 @@ class AddNote extends Component {
     };
   }
 
+  componentDidMount() {
+    const { state } = this.props.location;
+    if (state) {
+      const { id, title, text } = state;
+      this.setState({
+        id,
+        title,
+        text,
+      });
+    }
+  }
+  
   updateTitle = (event) => {
     this.setState({
       title: event.target.value,
@@ -35,7 +47,6 @@ class AddNote extends Component {
   };
 
   render() {
-    console.log(this.props);
     return (
       <form>
         <FormControl fullWidth>
@@ -69,4 +80,4 @@ class AddNote extends Component {
   }
 }
 
-export default withRouter(AddNote);
+export default withRouter(UpsertNote);
