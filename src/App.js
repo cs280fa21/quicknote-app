@@ -1,15 +1,9 @@
 import React, { Component } from "react";
-import { Container, List, Fab, withStyles } from "@material-ui/core";
-import { Add } from "@material-ui/icons";
-import Note from "./components/Note";
-
-const styles = {
-  fab: {
-    position: 'absolute',
-    bottom: "2rem",
-    right: "2rem",
-  }
-};
+import { Container } from "@material-ui/core";
+import DisplayNotes from "./pages/DisplayNotes";
+import UpsertNote from "./pages/UpsertNote";
+import { Route, Switch } from "react-router";
+import { v4 as uuidv4 } from "uuid";
 
 class App extends Component {
   constructor(props) {
@@ -45,23 +39,40 @@ class App extends Component {
     });
   };
 
+  addNote = (note) => {
+    this.setState((state) => {
+      return {
+        notes: [...state.notes, Object.assign(note, { id: uuidv4() })],
+      };
+    });
+  };
+
+  editNote = (note) => {
+    this.setState((state) => {
+      return {
+        notes: state.notes.map((n) => (n.id === note.id ? note : n)),
+      };
+    });
+  };
+
   render() {
     const { notes } = this.state;
     return (
       <Container>
-        <List>
-          {notes.map((note, index) => {
-            return (
-              <Note note={note} key={index} deleteNote={this.deleteNote} />
-            );
-          })}
-        </List>
-        <Fab aria-label={"Add"} className={this.props.classes.fab}>
-          <Add />
-        </Fab>
+        <Switch>
+          <Route exact path="/">
+            <DisplayNotes notes={notes} deleteNote={this.deleteNote} />
+          </Route>
+          <Route path="/add">
+            <UpsertNote upsertNote={this.addNote} />
+          </Route>
+          <Route path="/edit">
+            <UpsertNote upsertNote={this.editNote} />
+          </Route>
+        </Switch>
       </Container>
     );
   }
 }
 
-export default withStyles(styles)(App);
+export default App;
