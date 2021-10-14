@@ -25,7 +25,7 @@ class AddNote extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault();
-    this.props.addNote(this.state);
+    this.props.upsertNote(this.state);
     this.props.history.push("/");
   };
 
