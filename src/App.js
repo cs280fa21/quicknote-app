@@ -3,6 +3,7 @@ import { Container } from "@material-ui/core";
 import DisplayNotes from "./pages/DisplayNotes";
 import AddNote from "./pages/AddNote";
 import { Route, Switch } from "react-router";
+import { v4 as uuidv4 } from 'uuid';
 
 class App extends Component {
   constructor(props) {
@@ -38,6 +39,14 @@ class App extends Component {
     });
   };
 
+  addNote = (note) => {
+    this.setState((state) => {
+      return {
+        notes: [...state.notes, Object.assign(note, {id: uuidv4()})],
+      };
+    });
+  };
+
   render() {
     const { notes } = this.state;
     return (
@@ -47,7 +56,7 @@ class App extends Component {
             <DisplayNotes notes={notes} deleteNote={this.deleteNote} />
           </Route>
           <Route path="/add">
-            <AddNote />
+            <AddNote addNote={this.addNote} />
           </Route>
         </Switch>
       </Container>
