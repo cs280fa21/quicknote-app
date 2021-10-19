@@ -6,6 +6,8 @@ import {
   ListItemText,
   ListItemIcon,
   Button,
+  Paper,
+  Box,
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore, Delete, Edit } from "@material-ui/icons";
 import { Link } from "react-router-dom";
@@ -58,10 +60,16 @@ class Note extends Component {
           <List component="div" disablePadding>
             <ListItemText
               secondary={
-                <ReactMarkdown
-                  children={note.text}
-                  remarkPlugins={[remarkGfm]}
-                />
+                <Box mx={4}>
+                  <Paper elevation={4}>
+                    <Box p={4}>
+                      <ReactMarkdown
+                        children={note.text}
+                        remarkPlugins={[remarkGfm]}
+                      />
+                    </Box>
+                  </Paper>
+                </Box>
               }
             />
           </List>
