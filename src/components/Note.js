@@ -9,6 +9,7 @@ import {
 } from "@material-ui/core";
 import { ExpandLess, ExpandMore, Delete, Edit } from "@material-ui/icons";
 import { Link } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
 
 class Note extends Component {
   constructor(props) {
@@ -54,7 +55,9 @@ class Note extends Component {
         </ListItem>
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
-            <ListItemText secondary={note.text} />
+            <ListItemText
+              secondary={<ReactMarkdown>{note.text}</ReactMarkdown>}
+            />
           </List>
         </Collapse>
       </>
