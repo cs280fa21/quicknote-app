@@ -42,9 +42,9 @@ class UpsertNote extends Component {
     });
   };
 
-  updateText = (event) => {
+  updateText = (value) => {
     this.setState({
-      text: event.target.value,
+      text: value,
     });
   };
 
@@ -72,7 +72,7 @@ class UpsertNote extends Component {
             />
           </FormControl>
         </Paper>
-        <SimpleMDE value={this.state.text} onChange={this.changeText} />
+        <SimpleMDE value={this.state.text} onChange={this.updateText} />
         <div>
           <Button type="button" color="secondary" onClick={this.handleCancel}>
             Cancel
