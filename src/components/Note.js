@@ -10,6 +10,7 @@ import {
 import { ExpandLess, ExpandMore, Delete, Edit } from "@material-ui/icons";
 import { Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 class Note extends Component {
   constructor(props) {
@@ -56,7 +57,12 @@ class Note extends Component {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             <ListItemText
-              secondary={<ReactMarkdown>{note.text}</ReactMarkdown>}
+              secondary={
+                <ReactMarkdown
+                  children={note.text}
+                  remarkPlugins={[remarkGfm]}
+                />
+              }
             />
           </List>
         </Collapse>
